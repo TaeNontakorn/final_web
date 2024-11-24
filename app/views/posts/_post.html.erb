@@ -1,0 +1,29 @@
+<div id="<%= dom_id post %>" class="post-container">
+  <p>
+    <%= post.titel %>
+  </p>
+
+  <p>
+    <%= post.description %>
+  </p>
+
+  <p>
+    <%= post.keyword %>
+  </p>
+
+  <p>
+    <%= post.user_id %>
+  </p>
+
+  <p>
+    <%= link_to "show this post",post %>
+  </p>
+  
+
+  <p>
+    <%#= link_to "Show this post", post %>
+  </p>
+  <% post.images.each do | image |%>
+    <%= image_tag(image,style:"object-fit: contain; width:200px ;height:200px")%>
+  <% end %>
+</div>
