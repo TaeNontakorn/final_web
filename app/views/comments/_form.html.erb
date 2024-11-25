@@ -22,8 +22,13 @@
   </div>
 
   <!-- Hidden fields for user_id and post_id -->
+  <% if @post.present? %>
+    <%= form.hidden_field :post_id, value: @post.id %>
+  <% else %>
+    <p style="color: red;">Error: Post not found. Please reload the page.</p>
+  <% end %>
+
   <%= form.hidden_field :user_id, value: current_user.id %>
-  <%= form.hidden_field :post_id, value: @post.id %>
 
   <!-- Submit button -->
   <div>

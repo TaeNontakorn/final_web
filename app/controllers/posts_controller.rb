@@ -1,23 +1,20 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[show edit update destroy]
+  before_action :authenticate_user!, except: %i[index show]
 
-  before_action :authenticate_user!,except:[:index,:show]
   # GET /posts or /posts.json
   def index
     @posts = Post.all
   end
 
   # GET /posts/1 or /posts/1.json
-  # PostsController
   def show
     @comment = @post.comments.build
-    @post = Post.find(params[:id])
-    @comment = Comment.new # กำหนด instance ใหม่ของ Comment
   end
 
-
+  # GET /posts/myposts
   def myposts
-    @posts = Post.all
+    @posts = current_user.posts # Display only the posts created by the current user
   end
 
   # GET /posts/new
@@ -31,7 +28,8 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = Post.new(post_params)
+    # Associate the post with the current user
+    @post = current_user.posts.build(post_params)
 
     respond_to do |format|
       if @post.save
@@ -59,7 +57,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
-    @post.destroy!
+    @post.destroy
 
     respond_to do |format|
       format.html { redirect_to posts_path, status: :see_other, notice: "Post was successfully destroyed." }
@@ -68,14 +66,14 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post).permit(:titel, :description, :keyword,:user_id ,images:[])
-      
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.require(:post).permit(:titel, :description, :keyword, images: [])
+  end
 end
