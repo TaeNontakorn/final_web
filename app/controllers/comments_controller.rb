@@ -8,11 +8,10 @@ class CommentsController < ApplicationController
 
   # GET /comments/1 or /comments/1.json
   def show
-    @comment = @post.comments.build
-    # PostsController
-    @post = Post.find(params[:id]) # โหลดโพสต์ที่ต้องการ
-    @comment = Comment.new         # สร้าง instance ใหม่ของ Comment
+     # โหลดโพสต์ที่เกี่ยวข้องโดยใช้ post_id
+       # สร้าง instance ใหม่ของ Comment ที่ผูกกับโพสต์
   end
+  
 
   # GET /comments/new
   def new

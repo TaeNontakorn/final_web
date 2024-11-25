@@ -5,8 +5,12 @@ Rails.application.routes.draw do
   
   
   devise_scope :user do
-    delete '/users/sign_out', to: 'devise/sessions#destroy'
+    get '/users' , to: 'devise/registrations#new'
+    get '/users/password', to: 'devise/passwords#new'
+    get '/users/sign_out' => 'devise/sessions#destroy'
   end
+  
+
   devise_for :users
   
 
