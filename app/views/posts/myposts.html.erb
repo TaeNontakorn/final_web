@@ -5,7 +5,7 @@
 
 <div id="posts" class="text-center">
   <% @posts.each do |post| %>
-    <%if post.user_id == current_user.id%>
+    <%if post.user.id == current_user.id%>
         <%= render post %>
     <%end%>
   <% end %>

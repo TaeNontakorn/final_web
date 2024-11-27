@@ -1,15 +1,27 @@
-<p style="color: green"><%= notice %></p>
+<div style="text-align: center; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+  <p style="color: green; font-size: 16px; font-weight: bold;"><%= notice %></p>
 
-<%= render @post %>
-<%= link_to "Back to posts", posts_path %>
-<% if user_signed_in?%>
-  <% if current_user.id == @post.user.id%>
-    <div>
-      <%= link_to "Edit this post", edit_post_path(@post) %> |
-      
-      <%= button_to "Destroy this post", @post, method: :delete %>
-    </div>
-  <% end%>
-<% end%>
+  <!-- แสดงโพสต์ -->
+  <div style="margin-bottom: 20px;">
+    <%= render @post %>
+  </div>
 
-<%= render 'comments/form', comment: @comment %>
+  <!-- ลิงก์กลับไปยังหน้าหลัก -->
+  <div style="margin-bottom: 20px;">
+    <%= link_to "Back to posts", posts_path, style: "color: #007bff; text-decoration: none; font-weight: bold;" %>
+  </div>
+
+  <% if user_signed_in? %>
+    <% if current_user.id == @post.user.id %>
+      <div style="margin-bottom: 20px;">
+        <%= link_to "Edit this post", edit_post_path(@post), class: "btn btn-primary", style: "margin-center: 10px;" %>
+        <%= button_to "Destroy this post", @post, method: :delete, class: "btn btn-danger", style: "margin-center: 10px;" %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <!-- ฟอร์มแสดงความคิดเห็น -->
+  <div style="margin-top: 30px; text-align: left;">
+    <%= render 'comments/form', comment: @comment %>
+  </div>
+</div>
