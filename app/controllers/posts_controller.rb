@@ -10,6 +10,7 @@ class PostsController < ApplicationController
   # GET /posts/1 or /posts/1.json
   def show
     @comment = @post.comments.build
+    @post = Post.find(params[:id])
   end
 
   # GET /posts/myposts

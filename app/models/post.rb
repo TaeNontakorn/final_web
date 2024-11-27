@@ -14,7 +14,7 @@ class Post < ApplicationRecord
 
   has_many :comments
 
-  has_many :likes
+  has_many :likes, dependent: :destroy
 
   # Callbacks
   before_create :randomize_id

@@ -3,7 +3,7 @@
 <%= render @post %>
 <%= link_to "Back to posts", posts_path %>
 <% if user_signed_in?%>
-  <% if current_user.id == @post.user_id%>
+  <% if current_user.id == @post.user.id%>
     <div>
       <%= link_to "Edit this post", edit_post_path(@post) %> |
       
