@@ -16,9 +16,9 @@
 
     <!-- Title field -->
     <div class="mb-3">
-      <%= form.label :titel, class: "form-label" %>
-      <%= form.text_field :titel, class: "form-control #{'is-invalid' if post.errors[:titel].any?}" %>
-      <% if post.errors[:titel].any? %>
+      <%= form.label :title, class: "form-label" %>
+      <%= form.text_field :title, class: "form-control #{'is-invalid' if post.errors[:titel].any?}" %>
+      <% if post.errors[:title].any? %>
         <div class="invalid-feedback">
           <%= post.errors.full_messages_for(:titel).join(", ") %>
         </div>
@@ -36,16 +36,7 @@
       <% end %>
     </div>
 
-    <!-- Keyword field -->
-    <div class="mb-3">
-      <%= form.label :keyword, class: "form-label" %>
-      <%= form.text_field :keyword, class: "form-control #{'is-invalid' if post.errors[:keyword].any?}" %>
-      <% if post.errors[:keyword].any? %>
-        <div class="invalid-feedback">
-          <%= post.errors.full_messages_for(:keyword).join(", ") %>
-        </div>
-      <% end %>
-    </div>
+   
 
     <!-- Image upload field -->
     <div class="mb-3">

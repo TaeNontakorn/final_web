@@ -1,19 +1,17 @@
 class Post < ApplicationRecord
   # Validations
-  validates :titel, presence: true, length: { maximum: 100 }
+  validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true, length: { maximum: 250 }
-  validates :keyword, presence: true, length: { maximum: 100 }
+  #validates :keyword, presence: true, length: { maximum: 100 }
   validates :user, presence: true
 
   # Active Storage association
   has_many_attached :images
   validate :validate_images
 
-  # Association
+  # Associations
   belongs_to :user
-
   has_many :comments
-
   has_many :likes, dependent: :destroy
 
   # Callbacks
@@ -34,4 +32,19 @@ class Post < ApplicationRecord
       errors.add(:images, "cannot have more than 5 images")
     end
   end
+
+
+  scope :search_by_title, ->(query) { where('title LIKE ?', "%#{query}%") }
+  scope :search_by_description, ->(query) { where('description LIKE ?', "%#{query}%") }
+  scope :search_by_keyword, ->(query) { where('keyword LIKE ?', "%#{query}%") }
+
+  def self.search(query)
+    return all unless query.present?
+
+    search_by_title(query)
+      .or(search_by_description(query))
+      .or(search_by_keyword(query))
+  end
+
+ 
 end

@@ -1,9 +1,19 @@
 <div id="<%= dom_id(post) %>" class="post-container">
-  <p><%= post.titel.presence || "Untitled Post" %></p>
+  <p><%= post.title.presence || "Untitled Post" %></p>
+
+  <!-- แสดงรูปภาพ -->
+  <% if post.images.attached? %>
+    <% post.images.each do |image| %>
+      <%= image_tag(image, style: "width:200px; height:200px;") %>
+    <% end %>
+  <% else %>
+    <p>No images available</p>
+  <% end %>
+
   <p><%= post.description.presence || "No description available." %></p>
   <p>Created by User ID: <%= post.user_id %></p>
 
-  <!-- แสดงปุ่ม Like/Unlike -->
+    <!-- แสดงปุ่ม Like/Unlike -->
   <% if user_signed_in? %>
     <% like = current_user.likes.find_by(post: post) rescue nil %>
     <% if like.nil? %>
@@ -23,12 +33,4 @@
 
   <p><%= post.likes.count || 0 %> Likes</p>
 
-  <!-- แสดงรูปภาพ -->
-  <% if post.images.attached? %>
-    <% post.images.each do |image| %>
-      <%= image_tag(image, style: "width:200px; height:200px;") %>
-    <% end %>
-  <% else %>
-    <p>No images available</p>
-  <% end %>
 </div>

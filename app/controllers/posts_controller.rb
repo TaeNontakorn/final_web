@@ -4,7 +4,12 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    if params[:query].present?
+      Rails.logger.info("Search Query: #{params[:query]}")
+      @posts = Post.search(params[:query])
+    else
+      @posts = Post.all
+    end
   end
 
   # GET /posts/1 or /posts/1.json
@@ -75,6 +80,6 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:titel, :description, :keyword, images: [])
+    params.require(:post).permit(:title, :description, :keyword, images: [])
   end
 end

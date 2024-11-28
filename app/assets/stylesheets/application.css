@@ -1,10 +1,95 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+
+
+
+ .new-post-container {
+    text-align: right; /* จัดให้อยู่ตรงกลาง */
+    margin-top: 15px;   /* เว้นระยะห่างด้านบน */
+    margin-right: 90px;
+  }
+  
+  .new-post-container .btn {
+    display: inline-block;
+  }
+
+  /* พื้นหลังและฟอนต์ */
+body {
+    background-color: #f9f9f9; /* สีพื้นหลังอ่อน */
+    font-family: 'Poppins', sans-serif; /* ฟอนต์เรียบง่าย */
+    color: #333; /* สีข้อความ */
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Navbar */
+  .navbar {
+    background-color: #fff; /* พื้นหลังสีขาว */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+    padding: 1rem;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #000;
+  }
+  
+  .nav-link {
+    color: #555;
+    font-size: 0.95rem;
+    margin-left: 1rem;
+    transition: color 0.2s;
+  }
+  
+  /* สไตล์สำหรับโพสต์ */
+.post-container {
+    text-align: center;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  /* ข้อความแจ้งเตือน */
+  .notice-message {
+    color: green;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* แสดงโพสต์ */
+  .post-content {
+    margin-bottom: 20px;
+  }
+  
+  /* ลิงก์กลับไปยังหน้าหลัก */
+  .back-link {
+    margin-bottom: 20px;
+  }
+  
+  .btn-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .btn-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* การกระทำของผู้ใช้ที่โพสต์ */
+  .post-actions {
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    margin: 5px;
+  }
+  
+  /* ฟอร์มแสดงความคิดเห็น */
+  .comment-form {
+    margin-top: 30px;
+    text-align: left;
+  }
