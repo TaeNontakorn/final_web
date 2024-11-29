@@ -1,9 +1,7 @@
 <%= stylesheet_link_tag "post", media: "all", "data-turbo-track": "reload" %>
 <p style="color: green"><%= notice %></p>
 
-<div class="new-post-container">
-<%= link_to"New Post",new_post_path, class: "btn btn-primary"%>
-</div>
+
 
 <% content_for :title, "Posts" %>
 
