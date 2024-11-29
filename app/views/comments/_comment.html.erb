@@ -1,17 +1,36 @@
-<div id="<%= dom_id comment %>">
-  <p>
-    <strong>Text:</strong>
-    <%= comment.text %>
-  </p>
+<div class="card shadow-sm mx-auto" style="max-width: 500px; border-radius: 10px; padding: 20px;">
+  <!-- Display comment form title -->
+  <h3 class="text-center mb-4">Add a Comment</h3>
 
-  <p>
-    <strong>User:</strong>
-    <%= comment.user_id %>
-  </p>
+  <!-- Form -->
+  <%= form_with(model: comment, local: true) do |form| %>
+    <!-- Error messages -->
+    <% if comment.errors.any? %>
+      <div class="alert alert-danger">
+        <h4 class="alert-heading"><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h4>
+        <ul>
+          <% comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <p>
-    <strong>Post:</strong>
-    <%= comment.post_id %>
-  </p>
+    <!-- Comment text field -->
+    <div class="mb-4">
+      <%= form.label :text, "Your Comment", class: "form-label fw-bold" %>
+      <%= form.text_area :text, placeholder: "Write your comment here...", rows: 4, 
+                         class: "form-control #{'is-invalid' if comment.errors[:text].any?}" %>
+      <% if comment.errors[:text].any? %>
+        <div class="invalid-feedback">
+          <%= comment.errors.full_messages_for(:text).join(", ") %>
+        </div>
+      <% end %>
+    </div>
 
+    <!-- Submit button -->
+    <div class="d-flex justify-content-center">
+      <%= form.submit "Submit Comment", class: "btn btn-primary px-4" %>
+    </div>
+  <% end %>
 </div>

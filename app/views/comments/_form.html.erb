@@ -1,37 +1,41 @@
-<%= form_with(model: comment, local: true) do |form| %>
-  <% if comment.errors.any? %>
-    <div style="color: red; margin-bottom: 20px;">
-      <h4><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h4>
-      <ul>
-        <% comment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="card p-4 shadow-sm" style="border-radius: 10px;">
+  <h3 class="text-center mb-4">Add a Comment</h3>
 
-  <!-- Comment text field -->
-  <div class="mb-3">
-    <%= form.label :text, "Comment", style: "display: block;" %>
-    <%= form.text_area :text, class: "form-control #{'is-invalid' if comment.errors[:text].any?}" %>
-    <% if comment.errors[:text].any? %>
-      <div style="color: red;">
-        <%= comment.errors.full_messages_for(:text).join(", ") %>
+  <%= form_with(model: comment, local: true, html: { class: "needs-validation" }) do |form| %>
+    <% if comment.errors.any? %>
+      <div class="alert alert-danger">
+        <h4 class="alert-heading"><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h4>
+        <ul class="mb-0">
+          <% comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
       </div>
     <% end %>
-  </div>
 
-  <!-- Hidden fields for user_id and post_id -->
-  <% if @post.present? %>
-    <%= form.hidden_field :post_id, value: @post.id %>
-  <% else %>
-    <p style="color: red;">Error: Post not found. Please reload the page.</p>
+    <!-- Comment text field -->
+    <div class="form-group mb-3">
+      <%= form.label :text, "Your Comment", class: "form-label fw-bold" %>
+      <%= form.text_area :text, rows: 3, class: "form-control #{'is-invalid' if comment.errors[:text].any?}", placeholder: "Write your comment here..." %>
+      <% if comment.errors[:text].any? %>
+        <div class="invalid-feedback d-block">
+          <%= comment.errors.full_messages_for(:text).join(", ") %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Hidden fields for user_id and post_id -->
+    <% if @post.present? %>
+      <%= form.hidden_field :post_id, value: @post.id %>
+    <% else %>
+      <p class="text-danger">Error: Post not found. Please reload the page.</p>
+    <% end %>
+    
+    <%= form.hidden_field :user_id, value: current_user.id %>
+
+    <!-- Submit button -->
+    <div class="text-center">
+      <%= form.submit "Submit Comment", class: "btn btn-primary px-4 py-2" %>
+    </div>
   <% end %>
-
-  <%= form.hidden_field :user_id, value: current_user.id %>
-
-  <!-- Submit button -->
-  <div>
-    <%= form.submit "Submit Comment", class: "btn btn-primary" %>
-  </div>
-<% end %>
+</div>

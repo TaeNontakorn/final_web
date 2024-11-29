@@ -1,36 +1,64 @@
-<div id="<%= dom_id(post) %>" class="post-container">
-  <p><%= post.title.presence || "Untitled Post" %></p>
+<div id="<%= dom_id(post) %>" class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <!-- Post Title -->
+    <h5 class="card-title text-center">
+      <%= post.title.presence || "Untitled Post" %>
+    </h5>
 
-  <!-- แสดงรูปภาพ -->
-  <% if post.images.attached? %>
-    <% post.images.each do |image| %>
-      <%= image_tag(image, style: "width:200px; height:200px;") %>
-    <% end %>
-  <% else %>
-    <p>No images available</p>
-  <% end %>
 
-  <p><%= post.description.presence || "No description available." %></p>
-  <p>Created by User ID: <%= post.user_id %></p>
+      <!-- Post Description -->
+    <p class="card-text mt-3">
+      <%= post.description.presence || "No description available." %>
+    </p>
 
-    <!-- แสดงปุ่ม Like/Unlike -->
-  <% if user_signed_in? %>
-    <% like = current_user.likes.find_by(post: post) rescue nil %>
-    <% if like.nil? %>
-      <%= button_to "Like", likes_path, 
-                    params: { like: { post_id: post.id } }, 
-                    method: :post, 
-                    class: "btn btn-success" %>
-    <% else %>
-      <%= button_to "Unlike", like_path(like), 
-                    method: :delete, 
-                    class: "btn btn-danger", 
-                    data: { confirm: "Are you sure you want to unlike this post?" } %>
-    <% end %>
-  <% else %>
-    <p>Please log in to like posts.</p>
-  <% end %>
+    <!-- Display Images -->
+    <div class="d-flex justify-content-center flex-wrap">
+      <% if post.images.attached? %>
+        <% post.images.each do |image| %>
+          <%= image_tag(image, class: "img-thumbnail m-2", style: "width: 200px; height: 200px; object-fit: cover;") %>
+        <% end %>
+      <% else %>
+        <p class="text-muted text-center">No images available</p>
+      <% end %>
+    </div>
 
-  <p><%= post.likes.count || 0 %> Likes</p>
+  
+    <!-- User Information -->
+    <p class="text-muted small">
+      Created by User ID: <strong><%= post.user_id %></strong>
+    </p>
 
+      <!-- Link to Full Post -->
+    <p class="text-center">
+      <%= link_to "View Full Post", post_path(post), class: "btn btn-primary btn-sm" %>
+    </p>
+    
+
+    <!-- Like/Unlike Buttons -->
+    <div class="d-flex justify-content-center mt-3">
+      <% if user_signed_in? %>
+        <% like = current_user.likes.find_by(post: post) rescue nil %>
+        <% if like.nil? %>
+          <%= button_to "Like", likes_path,
+                        params: { like: { post_id: post.id } },
+                        method: :post,
+                        class: "btn btn-success btn-sm" %>
+        <% else %>
+          <%= button_to "Unlike", like_path(like),
+                        method: :delete,
+                        class: "btn btn-danger btn-sm",
+                        data: { confirm: "Are you sure you want to unlike this post?" } %>
+        <% end %>
+      <% else %>
+        <p class="text-muted small">Please log in to like posts.</p>
+      <% end %>
+    </div>
+
+    <!-- Like Counter -->
+    <p class="text-center mt-2 mb-0">
+      <strong><%= post.likes.count || 0 %></strong> Likes
+    </p>
+
+    
+  </div>
 </div>
